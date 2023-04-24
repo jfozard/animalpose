@@ -1,4 +1,4 @@
-]65;6003;1cfrom img2dataset import download
+from img2dataset import download
 import shutil
 import os
 from clip_retrieval.clip_client import ClipClient, Modality
