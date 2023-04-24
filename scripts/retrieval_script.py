@@ -1,4 +1,4 @@
-from img2dataset import download
+]65;6003;1cfrom img2dataset import download
 import shutil
 import os
 from clip_retrieval.clip_client import ClipClient, Modality
@@ -7,12 +7,14 @@ import csv
 
 
 def make_query_list(query_file, num_images=1000):
-#    query_list = [f"a {animal} {verb}" for animal in ['cat','dog','cow','sheep','horse','panda','deer', 'rhino'] for verb in ['standing', 'walking', 'sitting', 'running']]
-    query_list = [f"a photo of a {animal} {verb}" for animal in ['cat','dog'] for verb in ['standing', 'walking']]
+
+    animals = ["dog", "cat", "monkey", "elephant", "lion", "tiger", "zebra", "giraffe", "bear", "fox", "rabbit", "deer", "wolf", "horse", "cow", "sheep", "goat", "pig", "duck", "penguin", "panda", "koala", "kangaroo", "hippopotamus", "crocodile", "snake", "turtle", "frog"]
+    verbs = ["walking", "running", "jumping", "swimming", "climbing", "crawling", "galloping", "leaping", "sneaking", "roaming", "napping", "playing", "sleeping", "yawning", "fighting", "jumping", "exploring", "observing"]
+
+    query_list = [f"a photo of a {animal} {verb}" for animal in animals for verb in verbs]
 
     query_file = open('query.csv', 'w')
     client = ClipClient(url="https://knn.laion.ai/knn-service", indice_name="laion5B-L-14", num_images=num_images, )
-#    query_file =f'{query}.csv'
 
     writer = csv.writer(query_file)
     writer.writerow(['URL', 'TEXT'])
@@ -23,10 +25,6 @@ def make_query_list(query_file, num_images=1000):
         for r in results:
             writer.writerow((r['url'], r['caption']))
         
- #   output_dir = os.path.abspath(f"{query}")
-    
-    #if os.path.exists(output_dir):
-    #    shutil.rmtree(output_dir)
 
 def download_query_file(query_file, output_dir):
     download(
